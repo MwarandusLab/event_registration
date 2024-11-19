@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/panel.css') }}">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <h1 class="brand">Admin Dashboard</h1>
+            <ul>
+                <li><a href="{{ url_for('admin_panel') }}" class="active">Home</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="{{ url_for('admin_login') }}">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <h2>Submitted Form Data</h2>
+            <div class="table-container">
+                <table id="form-table">
+                    <thead>
+                        <tr>
+                            <th>No</th> <!-- Column for row numbers -->
+                            {% if form_data %}
+                                {% for key in form_data[0].keys() %}
+                                    <th>{{ key }}</th>
+                                {% endfor %}
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in form_data %}
+                        <tr>
+                            <td>{{ loop.index }}</td> <!-- Row number -->
+                            {% for value in row.values() %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Download Button -->
+            <div class="actions">
+                <button onclick="downloadPDF()">Download as PDF</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript for PDF Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script>
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf; // Use the globally available jsPDF instance
+            const doc = new jsPDF();
+
+            // Add title
+            doc.text("Submitted Form Data", 10, 10);
+
+            // Generate the table from HTML
+            doc.autoTable({
+                html: '#form-table',
+                startY: 20, // Start after the title
+            });
+
+            // Save the PDF
+            doc.save("Form_Data.pdf");
+        }
+    </script>
+</body>
+</html>
