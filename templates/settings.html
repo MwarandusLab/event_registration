@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <h1 class="brand">Admin Dashboard</h1>
+            <ul>
+                <li><a href="{{ url_for('admin_panel') }}" >Home</a></li>
+                <li><a href="{{ url_for('settings') }}" class="active">Settings</a></li>
+                <li><a href="{{ url_for('admin_login') }}">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="settings-container">
+            <h1>Form Settings</h1>
+            <form action="{{ url_for('settings') }}" method="POST">
+                <!-- Header -->
+                <label for="form-header">Form Header:</label>
+                <input type="text" id="form-header" name="form_header" value="{{ form_settings.header }}" required>
+
+                <!-- Name Field -->
+                <label for="name-label">Name Label:</label>
+                <input type="text" id="name-label" name="name_label" value="{{ form_settings.name_label }}" required>
+
+                <!-- Email Field -->
+                <label for="email-label">Email Label:</label>
+                <input type="text" id="email-label" name="email_label" value="{{ form_settings.email_label }}" required>
+
+                <!-- Extra Fields -->
+                <h2>Extra Fields</h2>
+                {% for field in form_settings.extra_fields %}
+                    <div class="extra-field">
+                        <!-- Dynamically display the correct label for each extra field -->
+                        <label for="field-{{ loop.index0 }}">{{ field.label if field.label else "Field " ~ loop.index }}</label>
+                        <input type="text" id="field-{{ loop.index0 }}" name="extra_fields[{{ loop.index0 }}][label]" value="{{ field.label }}" placeholder="Field Label" required>
+                        <select name="extra_fields[{{ loop.index0 }}][type]">
+                            <option value="text" {% if field.type == "text" %}selected{% endif %}>Text</option>
+                            <option value="number" {% if field.type == "number" %}selected{% endif %}>Number</option>
+                        </select>
+                        <button type="button" class="remove-field">Remove</button>
+                    </div>
+                {% endfor %}
+                <button type="button" id="add-field">Add Field</button>
+
+                <!-- Submit Button -->
+                <button type="submit">Save Settings</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for adding/removing extra fields
+        document.getElementById('add-field').addEventListener('click', () => {
+            const fieldCount = document.querySelectorAll('.extra-field').length;
+            if (fieldCount < 3) {
+                const container = document.createElement('div');
+                container.className = 'extra-field';
+                container.innerHTML = `
+                    <label>Field ${fieldCount + 1}:</label>
+                    <input type="text" name="extra_fields[${fieldCount}][label]" placeholder="Field Label" required>
+                    <select name="extra_fields[${fieldCount}][type]">
+                        <option value="text">Text</option>
+                        <option value="number">Number</option>
+                    </select>
+                    <button type="button" class="remove-field">Remove</button>
+                `;
+                document.querySelector('form').insertBefore(container, document.getElementById('add-field'));
+                attachRemoveListeners();
+            } else {
+                alert('You can only add up to 3 extra fields.');
+            }
+        });
+
+        function attachRemoveListeners() {
+            document.querySelectorAll('.remove-field').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const field = button.closest('.extra-field');
+                    field.remove();  // Remove the field visually from the DOM
+                });
+            });
+        }
+        attachRemoveListeners();
+
+    </script>
+</body>
+</html>

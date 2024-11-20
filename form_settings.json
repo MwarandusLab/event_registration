@@ -1,0 +1,17 @@
+{
+    "header": "Innovation Competition",
+    "name_label": "Name",
+    "email_label": "Email",
+    "extra_fields": [
+        {
+            "label": "School",
+            "type": "text"
+        },
+        {
+            "label": "ID No",
+            "type": "number"
+        }
+    ],
+    "phone_label": null,
+    "id_label": null
+}

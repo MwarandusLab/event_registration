@@ -40,9 +40,17 @@ label {
     text-align: left;
 }
 
-/* Inputs */
+/* Generic Input Styling */
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+input[type="url"],
+input[type="file"],
+select,
+textarea {
     width: 100%;
     padding: 12px 15px;
     margin-bottom: 20px;
@@ -55,10 +63,31 @@ input[type="email"] {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input:focus {
+/* Focused Inputs */
+input:focus,
+select:focus,
+textarea:focus {
     border-color: #74ebd5;
     box-shadow: 0 0 8px rgba(116, 235, 213, 0.4);
     outline: none;
+}
+
+/* Textarea Specific Styling */
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Select Dropdown Styling */
+select {
+    appearance: none;
+    background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23555' d='M2 0L0 2h4zM0 3l2 2 2-2z'/%3E%3C/svg%3E") no-repeat right 12px center;
+    background-size: 10px 10px;
+}
+
+/* File Input Styling */
+input[type="file"] {
+    padding: 5px;
 }
 
 /* Button Container */

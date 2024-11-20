@@ -14,7 +14,7 @@
             <h1 class="brand">Admin Dashboard</h1>
             <ul>
                 <li><a href="{{ url_for('admin_panel') }}" class="active">Home</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="{{ url_for('settings') }}">Settings</a></li>
                 <li><a href="{{ url_for('admin_login') }}">Logout</a></li>
             </ul>
         </nav>
@@ -29,7 +29,19 @@
                             <th>No</th> <!-- Column for row numbers -->
                             {% if form_data %}
                                 {% for key in form_data[0].keys() %}
-                                    <th>{{ key }}</th>
+                                    {% if key.startswith("extra_") %}
+                                        <!-- Display extra field name as column header -->
+                                        {% set field_index = key.split('_')[1] %}
+                                        <th>
+                                            {% if form_settings['extra_fields']|length > field_index|int %}
+                                                {{ form_settings['extra_fields'][field_index|int]['label'] }}
+                                            {% else %}
+                                                Unknown Field
+                                            {% endif %}
+                                        </th>
+                                    {% else %}
+                                        <th>{{ key }}</th>
+                                    {% endif %}
                                 {% endfor %}
                             {% endif %}
                         </tr>
@@ -38,12 +50,21 @@
                         {% for row in form_data %}
                         <tr>
                             <td>{{ loop.index }}</td> <!-- Row number -->
-                            {% for value in row.values() %}
-                                <td>{{ value }}</td>
+                            {% for key, value in row.items() %}
+                                <td>
+                                    {% if key.startswith("extra_") %}
+                                        {% set field_index = key.split('_')[1] %}
+                                        <!-- Display only the value for the extra field -->
+                                        {{ value }}
+                                    {% else %}
+                                        {{ value }} <!-- Display normal fields -->
+                                    {% endif %}
+                                </td>
                             {% endfor %}
                         </tr>
                         {% endfor %}
                     </tbody>
+                                              
                 </table>
             </div>
             <!-- Download Button -->

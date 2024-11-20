@@ -1,0 +1,259 @@
+/* General body styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+    flex-direction: column; /* Ensures navbar stays on top */
+}
+
+/* Navbar Styling */
+.navbar {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.navbar .brand {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.navbar ul li {
+    display: inline-block;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    background-color: #74ebd5;
+    color: #ffffff;
+}
+
+/* Active link */
+.navbar ul li a.active {
+    background-color: #1dd1a1;
+    color: white;
+}
+
+/* Adjust the content position to avoid overlap with navbar */
+.settings-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    margin-top: 70px; /* To avoid overlap with fixed navbar */
+}
+
+/* Title */
+.settings-container h1 {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Sub-title for Extra Fields */
+.settings-container h2 {
+    font-size: 20px;
+    color: #555;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* Form labels */
+label {
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* Form inputs */
+input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #555;
+    background: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: #ff9f43;
+    box-shadow: 0 0 8px rgba(255, 159, 67, 0.4);
+    outline: none;
+}
+
+/* Select Dropdown */
+select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #555;
+    background: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+    border-color: #ff9f43;
+    box-shadow: 0 0 8px rgba(255, 159, 67, 0.4);
+    outline: none;
+}
+
+/* Extra Fields Container */
+.extra-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Label styling within Extra Fields */
+.extra-field label {
+    flex: 1;
+    margin-bottom: 0; /* Ensures label aligns vertically with inputs */
+}
+
+/* Input and Select in Extra Fields */
+.extra-field input,
+.extra-field select {
+    flex: 2;
+    margin-bottom: 0; /* Ensures inputs align vertically */
+}
+
+/* Remove Field Button */
+.remove-field {
+    flex-shrink: 0; /* Prevents the button from shrinking */
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin: 0; /* Removes any default margin */
+    height: 40px; /* Matches the height of inputs */
+    display: flex;
+    align-items: center; /* Centers text vertically */
+    justify-content: center; /* Centers text horizontally */
+}
+
+.remove-field:hover {
+    background: #ee5253;
+}
+
+/* Add Field Button */
+#add-field {
+    background: #1dd1a1;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    margin-top: 10px;
+}
+
+#add-field:hover {
+    background: #10ac84;
+    transform: translateY(-2px);
+}
+
+#add-field:active {
+    transform: translateY(0);
+}
+
+/* Submit Button */
+button[type="submit"] {
+    width: 100%;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background: #ff6f3c;
+    transform: translateY(-2px);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+    }
+
+    .extra-field {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .remove-field {
+        width: 100%;
+    }
+
+    #add-field {
+        width: 100%;
+    }
+}
