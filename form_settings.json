@@ -6,10 +6,6 @@
         {
             "label": "School",
             "type": "text"
-        },
-        {
-            "label": "ID No",
-            "type": "number"
         }
     ],
     "phone_label": null,

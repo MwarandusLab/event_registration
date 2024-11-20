@@ -78,12 +78,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <script>
+        const formHeader = "{{ form_settings.header }}";
+
         function downloadPDF() {
-            const { jsPDF } = window.jspdf; // Use the globally available jsPDF instance
+            const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Add title
-            doc.text("Submitted Form Data", 10, 10);
+            const formHeader = "{{ form_settings.header }} - Submitted Form Data";
+
+            // Get the page width
+            const pageWidth = doc.internal.pageSize.getWidth();
+
+            // Calculate the x position to center the text
+            const textWidth = doc.getTextWidth(formHeader);
+            const xPosition = (pageWidth - textWidth) / 2;
+
+            // Add centered text
+            doc.text(formHeader, xPosition, 10);
 
             // Generate the table from HTML
             doc.autoTable({
@@ -92,7 +103,7 @@
             });
 
             // Save the PDF
-            doc.save("Form_Data.pdf");
+            doc.save(formHeader.replace(/\s+/g, '_') + "_Form_Data.pdf");
         }
     </script>
 </body>
