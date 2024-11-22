@@ -1,11 +1,15 @@
 {
-    "header": "Innovation Competition",
+    "header": "Education Club",
     "name_label": "Name",
     "email_label": "Email",
     "extra_fields": [
         {
-            "label": "School",
-            "type": "text"
+            "label": "ID No",
+            "type": "number"
+        },
+        {
+            "label": "Phone No",
+            "type": "number"
         }
     ],
     "phone_label": null,
